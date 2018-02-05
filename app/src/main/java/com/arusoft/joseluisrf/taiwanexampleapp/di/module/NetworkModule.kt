@@ -5,19 +5,19 @@ import com.arusoft.joseluisrf.taiwanexampleapp.data.api.TestApiService
 import com.arusoft.joseluisrf.taiwanexampleapp.data.api.datasource.FeedCloudDataSourceImpl
 import com.arusoft.joseluisrf.taiwanexampleapp.data.api.interceptor.ApiInterceptor
 import com.arusoft.joseluisrf.taiwanexampleapp.data.repository.datasource.FeedCloudDataSource
-import com.arusoft.joseluisrf.taiwanexampleapp.di.scope.UserScope
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class NetworkModule {
 
-    @UserScope
+    @Singleton
     @Provides
     fun providesCityGuideApi(apiInterceptor: ApiInterceptor):
             TestApiService = ServiceFactory.createRetrofitService(TestApiService::class.java, apiInterceptor)
 
-    @UserScope
+    @Singleton
     @Provides
     fun providesFeedCloudDataSource(feedCloudDataSource: FeedCloudDataSourceImpl):
             FeedCloudDataSource = feedCloudDataSource

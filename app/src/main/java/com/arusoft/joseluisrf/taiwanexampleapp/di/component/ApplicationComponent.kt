@@ -1,34 +1,43 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.di.component
 
-import android.content.Context
-import com.arusoft.joseluisrf.taiwanexampleapp.data.api.interceptor.ApiInterceptor
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.AppDataBase
-import com.arusoft.joseluisrf.taiwanexampleapp.di.module.ApplicationModule
-import com.arusoft.joseluisrf.taiwanexampleapp.di.module.ViewModelModule
-import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.PostExecutionThread
-import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.ThreadExecutor
-import com.arusoft.joseluisrf.taiwanexampleapp.util.DeviceUtils
-import com.arusoft.joseluisrf.taiwanexampleapp.util.PermissionsManager
+import android.app.Application
+import com.arusoft.joseluisrf.taiwanexampleapp.CustomApplication
+import com.arusoft.joseluisrf.taiwanexampleapp.di.module.*
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, ViewModelModule::class))
+@Component(
+        modules = arrayOf(
+                AndroidInjectionModule::class,
+                ApplicationModule::class,
+                MainActivityModule::class,
+                NetworkModule::class,
+                StorageModule::class,
+                RepositoryModule::class)
+)
 interface ApplicationComponent {
 
-    fun context(): Context
+    @Component.Builder
+    interface Builder {
 
-    fun threadExecutor() : ThreadExecutor
+        @BindsInstance
+        fun application(application: Application): Builder
 
-    fun postExecutionThread(): PostExecutionThread
+//        @BindsInstance
+//        fun networkModule(networkModule: NetworkModule) : Builder
+//
+//        @BindsInstance
+//        fun storageModule(storageModule: StorageModule) : Builder
+//
+//        @BindsInstance
+//        fun repositoryModule(repositoryModule: RepositoryModule) : Builder
 
-    fun deviceUtils(): DeviceUtils
+        fun build(): ApplicationComponent
+    }
 
-    fun apiInterceptor() : ApiInterceptor
-
-    fun appDataBase(): AppDataBase
-
-    fun permissionsManager(): PermissionsManager
-
+    fun inject(application: CustomApplication)
 }

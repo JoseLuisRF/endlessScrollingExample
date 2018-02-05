@@ -1,16 +1,25 @@
 package com.arusoft.joseluisrf.taiwanexampleapp
 
+import android.app.Activity
 import android.app.Application
-import com.arusoft.joseluisrf.taiwanexampleapp.di.ComponentsFactory
-import com.arusoft.joseluisrf.taiwanexampleapp.di.component.ApplicationComponent
+import com.arusoft.joseluisrf.taiwanexampleapp.di.AppInjector
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class CustomApplication : Application() {
+class CustomApplication : Application(), HasActivityInjector {
 
-    public lateinit var applicationComponent: ApplicationComponent
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent = ComponentsFactory.createApplicationComponent(this)
+
+        AppInjector.init(this)
     }
 
+    override fun activityInjector(): AndroidInjector<Activity> {
+        return dispatchingAndroidInjector
+    }
 }

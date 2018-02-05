@@ -5,7 +5,6 @@ import com.arusoft.joseluisrf.taiwanexampleapp.CustomApplication
 import com.arusoft.joseluisrf.taiwanexampleapp.UIThread
 import com.arusoft.joseluisrf.taiwanexampleapp.data.api.interceptor.ApiInterceptor
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.AppDataBase
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.AppDataBase_Impl
 import com.arusoft.joseluisrf.taiwanexampleapp.data.executor.JobExecutor
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.PostExecutionThread
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.ThreadExecutor
@@ -15,12 +14,12 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = arrayOf( ViewModelModule::class))
 class ApplicationModule constructor(private val context: CustomApplication) {
 
-    @Provides
-    @Singleton
-    fun providesContext(): Context = this.context
+//    @Provides
+//    @Singleton
+//    fun providesContext(): Context = this.context
 
     @Provides
     @Singleton

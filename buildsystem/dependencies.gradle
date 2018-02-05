@@ -90,7 +90,10 @@ ext {
             SafeRoom                : "com.commonsware.cwac:saferoom:${safeRoomVersion}",
             KotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
             AndroidDatabinding      : "com.android.databinding:compiler:${androidDataBindingVersion}",
-            KochavaSDK              : "com.kochava.base:tracker:${kochavaVersion}"
+            KochavaSDK              : "com.kochava.base:tracker:${kochavaVersion}",
+            DaggerAndroid           : "com.google.dagger:dagger-android:${dagger2Version}",
+            DaggerAndroidSupport    : "com.google.dagger:dagger-android-support:${dagger2Version}",
+            DaggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:${dagger2Version}"
     ]
 
     appTestDependencies = [
