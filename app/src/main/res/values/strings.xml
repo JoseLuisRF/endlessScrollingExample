@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SiDC Test</string>
+    <string name="conten_description_image_view_feed_item">Item Image</string>
+</resources>

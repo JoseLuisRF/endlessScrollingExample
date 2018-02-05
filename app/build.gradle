@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    flavorDimensions "tier"
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
+        testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        testApplicationId globalConfiguration.getAt("testApplicationId")
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    def dependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.appTestDependencies
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile dependencies.SupportDesign
+    implementation dependencies.AppCompatV7
+    implementation dependencies.ConstraintLayout
+    implementation dependencies.ArchRoomRuntime
+    implementation dependencies.ArchRoomRxJava2
+    compile dependencies.Dagger2
+    compile dependencies.Gson
+    compile dependencies.Picasso
+    compile dependencies.Retrofit
+    compile dependencies.RetrofitConverterGson
+    compile dependencies.RetrofitAdapterRxJava2
+    compile dependencies.OkHttp
+    compile dependencies.OkHttpInterceptor
+    compile dependencies.RxJava2
+    compile dependencies.RxAndroid
+
+    // alternatively, just ViewModelModule
+    implementation "android.arch.lifecycle:viewmodel:1.1.0"
+    // alternatively, just LiveData
+    implementation "android.arch.lifecycle:livedata:1.1.0"
+
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.0-alpha5"
+
+    kapt dependencies.RoomCompiler
+    kapt dependencies.Dagger2Compiler
+    kapt dependencies.AndroidDatabinding
+
+    testImplementation testDependencies.JUnit
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
