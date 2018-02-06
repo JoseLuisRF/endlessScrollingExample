@@ -13,7 +13,7 @@ import com.arusoft.offermepartner.data.database.dao.base.BaseDao
 @Dao
 interface FeedDao : BaseDao<FeedEntity> {
 
-    @Query("select * from " + FEED_TABLE_NAME)
+    @Query(" SELECT * FROM  $FEED_TABLE_NAME ORDER BY id ASC")
     fun selectFeeds() : DataSource.Factory<Integer, FeedEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

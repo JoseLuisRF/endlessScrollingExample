@@ -1,12 +1,7 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.presentation.view
 
-import android.arch.lifecycle.ViewModel
-import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Transformations
-import android.arch.paging.DataSource
-import android.arch.paging.LivePagedListBuilder
+import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
 import android.util.Log
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
@@ -27,7 +22,7 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
          * scrolling on a large device is expected to scroll through items more quickly than a small
          * device, such as when the large device uses a grid layout of items.
          */
-        private const val PAGE_SIZE = 30
+        private const val PAGE_SIZE = 20
 
         /**
          * If placeholders are enabled, PagedList will report the full size but some items might
@@ -40,19 +35,15 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
         private const val ENABLE_PLACEHOLDERS = true
     }
 
-    var allFeedItems: LiveData<PagedList<FeedEntity>>? = null
+    var allFeedItems : LiveData<PagedList<FeedEntity>>? = null
 
-
-    fun getFeedGuide(): LiveData<PagedList<FeedEntity>> {
-        if (allFeedItems == null) {
-            allFeedItems = MutableLiveData<PagedList<FeedEntity>>()
-            loadUsers()
-        }
-        return allFeedItems!!
+    init {
+        loadUsers()
     }
 
+
     private fun loadUsers() {
-        useCaseGetCityGuide.execute(object : DisposableSubscriber<DataSource.Factory<Integer, FeedEntity>>() {
+        useCaseGetCityGuide.execute(object : DisposableSubscriber<LiveData<PagedList<FeedEntity>>>() {
             override fun onError(t: Throwable?) {
                 t?.printStackTrace()
                 Log.d("JLRF", t.toString())
@@ -62,15 +53,8 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
 
             }
 
-            override fun onNext(models: DataSource.Factory<Integer, FeedEntity>) {
-                allFeedItems = LivePagedListBuilder(
-                        models,
-                        PagedList.Config.Builder()
-                                .setPageSize(PAGE_SIZE)
-                                .setEnablePlaceholders(ENABLE_PLACEHOLDERS)
-                                .build()).build()
-                Log.d("JLRF", "onNext-models.count:" + allFeedItems?.value?.count())
-
+            override fun onNext(liveData: LiveData<PagedList<FeedEntity>>) {
+                allFeedItems = liveData
 
             }
 

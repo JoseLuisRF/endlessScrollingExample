@@ -34,14 +34,15 @@ class CityGuideFragment : BaseFragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         viewModel = viewModelFactory.create(CityGuideViewModel::class.java)
         val adapter = CityGuideAdapter()
-        binding.rvFeeds.adapter = adapter
 
         viewModel.allFeedItems?.observe(this, Observer<PagedList<FeedEntity>> {
             Log.d("JLRF", "PagedList<FeedEntity>")
             adapter.setList(it)
         })
 
-        viewModel.getFeedGuide()
+        binding.rvFeeds.adapter = adapter
+
+
 
     }
 }
