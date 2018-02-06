@@ -1,10 +1,10 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.presentation.view
 
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
+import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 
 
 interface CityGuideView {
     fun onLoadFeedError()
-    fun onLoadFeedSuccess(models: MutableList<FeedEntity>)
+    fun onLoadFeedSuccess(models: MutableList<FeedModel>)
 
 }

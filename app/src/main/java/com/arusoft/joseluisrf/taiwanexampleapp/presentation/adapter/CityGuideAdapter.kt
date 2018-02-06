@@ -6,29 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arusoft.joseluisrf.taiwanexampleapp.R
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.data.mapper.FeedMapper
 import com.arusoft.joseluisrf.taiwanexampleapp.databinding.ItemCityGuideBinding
 import com.arusoft.joseluisrf.taiwanexampleapp.databinding.ItemCityGuideFullImageBinding
+import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 
 
 class CityGuideAdapter constructor() : RecyclerView.Adapter< BaseItemViewHolder>() {
 
-    override fun getItemCount(): Int {
-        return data.count()
-    }
-
-    private val data = mutableListOf<FeedEntity>()
-
-    /**
-     * Adds an element to the adapter.
-     *
-     * @param items [BaseHomeCardModel]
-     */
-    fun addAll(items: List<FeedEntity>) {
-        data.addAll(items)
-        notifyDataSetChanged()
-    }
+    
+    private var mIsLoadingFooterAdded = false
+    private val data = mutableListOf<FeedModel>()
+    
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseItemViewHolder {
         return when (viewType) {
@@ -38,13 +27,14 @@ class CityGuideAdapter constructor() : RecyclerView.Adapter< BaseItemViewHolder>
             R.layout.item_city_guide_full_image -> ImageItemViewHolder(
                     DataBindingUtil.inflate(LayoutInflater.from(parent?.context), R.layout.item_city_guide_full_image, parent, false))
 
+            R.layout.loading_item_card ->  LoaderItemViewHolder(LayoutInflater.from(parent?.context).inflate( R.layout.loading_item_card, parent, false))
+
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
     }
 
     override fun onBindViewHolder(holder: BaseItemViewHolder?, position: Int) {
-        val mapper = FeedMapper()
-        val model = mapper.convert(data.get(position))
+        val model = data.get(position)
 
         if( holder is DescriptionItemViewHolder){
             holder.binding.model = model
@@ -56,14 +46,49 @@ class CityGuideAdapter constructor() : RecyclerView.Adapter< BaseItemViewHolder>
     override fun getItemViewType(position: Int): Int = when (data.get(position)?.type) {
         FULL_ITEM -> R.layout.item_city_guide
         IMAGE_ITEM -> R.layout.item_city_guide_full_image
+        LOADER_ITEM -> R.layout.loading_item_card
         else -> R.layout.item_city_guide
     }
 
+    override fun getItemCount(): Int {
+        return data.count()
+    }
 
+    
+    fun addAll(items: List<FeedModel>) {
+        data.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun add(item: FeedModel) {
+        data.add(item)
+        notifyItemInserted(data.size - 1)
+    }
+    
+    fun addLoading() {
+        if (!mIsLoadingFooterAdded) {
+            mIsLoadingFooterAdded = true
+            add(FeedModel())
+        }
+    }
+
+    fun removeLoading() {
+        if (mIsLoadingFooterAdded) {
+            val position = data.size - 1
+            val item = data.get(position)
+
+            if (item != null) {
+                data.removeAt(position)
+                notifyItemRemoved(position)
+            }
+            mIsLoadingFooterAdded = false
+        }
+    }
     companion object {
 
         private const val FULL_ITEM = 1
         private const val IMAGE_ITEM = 2
+        private const val LOADER_ITEM = 3
 
     }
 }
@@ -73,6 +98,8 @@ open class BaseItemViewHolder constructor(itemView: View) : RecyclerView.ViewHol
 open class DescriptionItemViewHolder constructor(val binding: ItemCityGuideBinding) : BaseItemViewHolder(binding.root)
 
 open class ImageItemViewHolder constructor(val binding: ItemCityGuideFullImageBinding) : BaseItemViewHolder(binding.root)
+
+open class LoaderItemViewHolder constructor(itemView: View) : BaseItemViewHolder(itemView)
 
 
 

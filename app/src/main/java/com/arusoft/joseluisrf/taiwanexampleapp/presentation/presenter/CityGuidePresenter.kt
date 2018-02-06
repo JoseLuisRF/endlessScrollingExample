@@ -2,6 +2,7 @@ package com.arusoft.joseluisrf.taiwanexampleapp.presentation.presenter
 
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.UseCaseGetCityGuide
+import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 import com.arusoft.joseluisrf.taiwanexampleapp.presentation.view.CityGuideView
 import io.reactivex.subscribers.DisposableSubscriber
 import javax.inject.Inject
@@ -11,8 +12,8 @@ class CityGuidePresenter @Inject constructor(private val useCaseGetCityGuide: Us
 
     var view: CityGuideView? = null
 
-    fun loadFeed() {
-        useCaseGetCityGuide.execute(object: DisposableSubscriber<List<FeedEntity>>() {
+    fun loadFeed(page: Int) {
+        useCaseGetCityGuide.execute(object : DisposableSubscriber<List<FeedModel>>() {
             override fun onComplete() {
 
             }
@@ -22,11 +23,11 @@ class CityGuidePresenter @Inject constructor(private val useCaseGetCityGuide: Us
                 view?.onLoadFeedError()
             }
 
-            override fun onNext(models: List<FeedEntity>) {
-                val anotherList = mutableListOf<FeedEntity>()
+            override fun onNext(models: List<FeedModel>) {
+                val anotherList = mutableListOf<FeedModel>()
                 models.forEach { item -> anotherList.add(item) }
                 view?.onLoadFeedSuccess(anotherList)
             }
-        }, 10)
+        }, page)
     }
 }

@@ -37,8 +37,8 @@ class FeedRepositoryImpl @Inject constructor(private val feedCloudDataSource: Fe
         return feedDiskDataSource.insertFeeds(models.map { model -> dataMapper.convert(model) })
     }
 
-    override fun selectAllFeeds(): Flowable<List<FeedEntity>> {
-        return feedDiskDataSource.selectFeeds()
+    override fun selectAllFeeds(page: Int): Flowable<List<FeedModel>> {
+        return feedDiskDataSource.selectFeeds(page).map { entities -> entities.map { entity-> dataMapper.convert(entity) }}
 
     }
 }

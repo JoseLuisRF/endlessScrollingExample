@@ -24,10 +24,9 @@ class FeedDiskDataSourceImpl @Inject constructor(private val database: AppDataBa
         }, BackpressureStrategy.BUFFER)
     }
 
-    override fun selectFeeds(): Flowable<List<FeedEntity>> {
+    override fun selectFeeds(page: Int): Flowable<List<FeedEntity>> {
         return Flowable.create({ e ->
-            val res = database.getFeedDao().selectFeeds()
-            e.onNext(res)
+            e.onNext(database.getFeedDao().selectFeeds(page))
             e.onComplete()
         }, BackpressureStrategy.BUFFER)
     }

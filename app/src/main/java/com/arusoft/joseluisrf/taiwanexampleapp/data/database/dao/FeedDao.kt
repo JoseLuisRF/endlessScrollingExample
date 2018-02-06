@@ -12,8 +12,8 @@ import com.arusoft.offermepartner.data.database.dao.base.BaseDao
 @Dao
 interface FeedDao : BaseDao<FeedEntity> {
 
-    @Query("select * from  $FEED_TABLE_NAME")
-    fun selectFeeds() : List<FeedEntity>
+    @Query("SELECT * FROM  $FEED_TABLE_NAME WHERE page = :page")
+    fun selectFeeds(page: Int) : List<FeedEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFeeds(entities: List<FeedEntity>) : List<Long>

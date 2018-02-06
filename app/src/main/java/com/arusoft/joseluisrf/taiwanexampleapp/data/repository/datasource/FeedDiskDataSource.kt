@@ -10,5 +10,5 @@ interface FeedDiskDataSource {
 
     fun insertFeeds(entities: List<FeedEntity>) : Flowable<List<Long>>
 
-    fun selectFeeds() : Flowable<List<FeedEntity>>
+    fun selectFeeds(page: Int) : Flowable<List<FeedEntity>>
 }
