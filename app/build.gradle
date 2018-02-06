@@ -56,7 +56,6 @@ dependencies {
     implementation dependencies.Dagger2
     implementation dependencies.DaggerAndroid
     implementation dependencies.DaggerAndroidSupport
-    implementation dependencies.DaggerAndroidProcessor
     implementation dependencies.Gson
     implementation dependencies.Picasso
     implementation dependencies.Retrofit
@@ -76,9 +75,11 @@ dependencies {
     // Paging
     implementation "android.arch.paging:runtime:1.0.0-alpha5"
 
+    kapt "android.arch.lifecycle:compiler:1.1.0"
     kapt dependencies.RoomCompiler
     kapt dependencies.Dagger2Compiler
     kapt dependencies.AndroidDatabinding
+    kapt dependencies.DaggerAndroidProcessor
 
     testImplementation testDependencies.JUnit
 

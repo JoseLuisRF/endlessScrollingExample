@@ -6,7 +6,6 @@ import com.arusoft.joseluisrf.taiwanexampleapp.domain.FeedRepository
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.PostExecutionThread
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.ThreadExecutor
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.base.BaseUseCaseFlowable
-import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 import com.arusoft.joseluisrf.taiwanexampleapp.util.DeviceUtils
 import io.reactivex.Flowable
 import javax.inject.Inject

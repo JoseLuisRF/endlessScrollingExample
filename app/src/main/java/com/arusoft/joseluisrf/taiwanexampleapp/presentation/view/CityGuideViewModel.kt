@@ -4,9 +4,11 @@ import android.arch.lifecycle.ViewModel
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.util.Log
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.UseCaseGetCityGuide
 import io.reactivex.subscribers.DisposableSubscriber
@@ -39,9 +41,7 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
     }
 
 
-
-    var allFeedItems : LiveData<PagedList<FeedEntity>>? = null
-
+    lateinit var allFeedItems: LiveData<PagedList<FeedEntity>>
 
     private var feedGuide: MutableLiveData<List<FeedModel>>? = null
 
@@ -54,20 +54,27 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
     }
 
     private fun loadUsers() {
-        useCaseGetCityGuide.execute(object: DisposableSubscriber<DataSource.Factory<Integer, FeedEntity>>(){
+        useCaseGetCityGuide.execute(object : DisposableSubscriber<DataSource.Factory<Integer, FeedEntity>>() {
             override fun onError(t: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                t?.printStackTrace()
+                Log.d("JLRF", t.toString())
             }
 
             override fun onComplete() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onNext(models: DataSource.Factory<Integer, FeedEntity>) {
-                allFeedItems = LivePagedListBuilder(models, PagedList.Config.Builder()
-                        .setPageSize(PAGE_SIZE)
-                        .setEnablePlaceholders(ENABLE_PLACEHOLDERS)
-                        .build()).build()
+
+
+                allFeedItems = LivePagedListBuilder(
+                        models,
+                        PagedList.Config.Builder()
+                                .setPageSize(PAGE_SIZE)
+                                .setEnablePlaceholders(ENABLE_PLACEHOLDERS)
+                                .build()).build()
+
+
             }
 
         }, 10)

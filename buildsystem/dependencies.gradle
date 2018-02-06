@@ -68,8 +68,6 @@ ext {
             PlayServicesMaps        : "com.google.android.gms:play-services-maps:${playServicesVersion}",
             PlayServicesLocation    : "com.google.android.gms:play-services-location:${playServicesVersion}",
             GcmPlayServices         : "com.google.android.gms:play-services-gcm:${playServicesVersion}",
-            Dagger2                 : "com.google.dagger:dagger:${dagger2Version}",
-            Dagger2Compiler         : "com.google.dagger:dagger-compiler:${dagger2Version}",
             Gson                    : "com.google.code.gson:gson:${gsonVersion}",
             Retrofit                : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             RetrofitConverterGson   : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
@@ -91,6 +89,8 @@ ext {
             KotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
             AndroidDatabinding      : "com.android.databinding:compiler:${androidDataBindingVersion}",
             KochavaSDK              : "com.kochava.base:tracker:${kochavaVersion}",
+            Dagger2                 : "com.google.dagger:dagger:${dagger2Version}",
+            Dagger2Compiler         : "com.google.dagger:dagger-compiler:${dagger2Version}",
             DaggerAndroid           : "com.google.dagger:dagger-android:${dagger2Version}",
             DaggerAndroidSupport    : "com.google.dagger:dagger-android-support:${dagger2Version}",
             DaggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:${dagger2Version}"

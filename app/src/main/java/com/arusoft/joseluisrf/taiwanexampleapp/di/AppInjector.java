@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.arusoft.joseluisrf.taiwanexampleapp.CustomApplication;
+import com.arusoft.joseluisrf.taiwanexampleapp.di.component.DaggerApplicationComponent;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;

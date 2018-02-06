@@ -5,14 +5,14 @@ import com.arusoft.joseluisrf.taiwanexampleapp.CustomApplication
 import com.arusoft.joseluisrf.taiwanexampleapp.di.module.*
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 
 @Singleton
 @Component(
         modules = arrayOf(
-                AndroidInjectionModule::class,
+                AndroidSupportInjectionModule::class,
                 ApplicationModule::class,
                 MainActivityModule::class,
                 NetworkModule::class,

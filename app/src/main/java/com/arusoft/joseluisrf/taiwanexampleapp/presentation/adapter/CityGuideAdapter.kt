@@ -9,18 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.arusoft.joseluisrf.taiwanexampleapp.R
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
+import com.arusoft.joseluisrf.taiwanexampleapp.data.mapper.FeedMapper
 import com.arusoft.joseluisrf.taiwanexampleapp.databinding.ItemCityGuideBinding
+import com.arusoft.joseluisrf.taiwanexampleapp.databinding.ItemCityGuideFullImageBinding
 
 
 class CityGuideAdapter constructor() : PagedListAdapter<FeedEntity, BaseItemViewHolder>(diffCallback) {
 
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onBindViewHolder(holder: BaseItemViewHolder?, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val mapper = FeedMapper()
+        when(getItemViewType(position)){
+            R.layout.item_city_guide -> (holder as DescriptionItemViewHolder).binding.model = mapper.convert(getItem(position)!!)
+
+            R.layout.item_city_guide_full_image -> (holder as ImageItemViewHolder).binding.model =  mapper.convert(getItem(position)!!)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseItemViewHolder {
@@ -29,9 +32,9 @@ class CityGuideAdapter constructor() : PagedListAdapter<FeedEntity, BaseItemView
                     DataBindingUtil.inflate(LayoutInflater.from(parent?.context),
                     R.layout.item_city_guide, parent, false))
 
-            R.layout.item_city_guide_full_image -> DescriptionItemViewHolder(
+            R.layout.item_city_guide_full_image -> ImageItemViewHolder(
                     DataBindingUtil.inflate(LayoutInflater.from(parent?.context),
-                            R.layout.item_city_guide, parent, false))
+                            R.layout.item_city_guide_full_image, parent, false))
 
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
@@ -74,9 +77,9 @@ class CityGuideAdapter constructor() : PagedListAdapter<FeedEntity, BaseItemView
 
 open class BaseItemViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-open class DescriptionItemViewHolder constructor(binding: ItemCityGuideBinding) : BaseItemViewHolder(binding.root)
+open class DescriptionItemViewHolder constructor(val binding: ItemCityGuideBinding) : BaseItemViewHolder(binding.root)
 
-open class ImageItemViewHolder constructor(itemView: View) : BaseItemViewHolder(itemView)
+open class ImageItemViewHolder constructor(val binding: ItemCityGuideFullImageBinding) : BaseItemViewHolder(binding.root)
 
 
 

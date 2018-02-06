@@ -24,8 +24,8 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class FragmentBuildersModule {
+
     @ContributesAndroidInjector
     abstract CityGuideFragment contributeRepoFragment();
-
 
 }

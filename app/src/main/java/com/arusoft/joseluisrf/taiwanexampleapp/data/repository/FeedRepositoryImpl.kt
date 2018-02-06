@@ -1,6 +1,7 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.data.repository
 
 import android.arch.paging.DataSource
+import android.util.Log
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.data.mapper.FeedMapper
 import com.arusoft.joseluisrf.taiwanexampleapp.data.repository.datasource.FeedCloudDataSource
@@ -25,7 +26,7 @@ class FeedRepositoryImpl @Inject constructor(private val feedCloudDataSource: Fe
                         }
 
                         val models: MutableList<FeedModel> = mutableListOf()
-                        body.feedItems.forEach { item -> models.add(dataMapper.convert(item)) }
+                        body.feeds.forEach { item -> models.add(dataMapper.convert(item)) }
                         models
 
                     } else {
@@ -35,11 +36,14 @@ class FeedRepositoryImpl @Inject constructor(private val feedCloudDataSource: Fe
     }
 
     override fun saveFeeds(models: List<FeedModel>): Flowable<List<Long>> {
-        return feedDiskDataSource.insertFeeds(models.map { model -> dataMapper.convert(model) })
+        Log.d("JLRF", "saveFeeds")
+        return feedDiskDataSource.insertFeeds(models.map { model ->
+            Log.d("JLRF", "entity:" + model.toString())
+            dataMapper.convert(model) })
     }
 
     override fun selectAllFeeds(): Flowable<DataSource.Factory<Integer, FeedEntity>> {
-
+        Log.d("JLRF", "selectAllFeeds")
         return feedDiskDataSource.selectFeeds()
 
     }

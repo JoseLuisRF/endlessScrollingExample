@@ -17,17 +17,4 @@ abstract class AppDataBase : RoomDatabase() {
 
     abstract fun getFeedDao() : FeedDao
 
-    companion object {
-//        var INSTANCE: AppDataBase? = null
-
-        @JvmStatic
-        fun createDatabase(context: Context): AppDataBase {
-            return Room.databaseBuilder(context, AppDataBase::class.java, DATABASE_NAME).build()
-//            if (INSTANCE == null) {
-//                INSTANCE = builder.build()
-//            }
-//            return INSTANCE
-        }
-    }
-
 }
