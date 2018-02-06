@@ -1,6 +1,7 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.data.database.datasource
 
 import android.arch.paging.DataSource
+import android.util.Log
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.AppDataBase
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.data.repository.datasource.FeedDiskDataSource
@@ -25,9 +26,10 @@ class FeedDiskDataSourceImpl @Inject constructor(private val database: AppDataBa
         }, BackpressureStrategy.BUFFER)
     }
 
-    override fun selectFeeds(): Flowable<DataSource.Factory<Integer, FeedEntity>> {
+    override fun selectFeeds(): Flowable<List<FeedEntity>> {
         return Flowable.create({ e ->
-            e.onNext(database.getFeedDao().selectFeeds())
+            val res = database.getFeedDao().selectFeeds()
+            e.onNext(res)
             e.onComplete()
         }, BackpressureStrategy.BUFFER)
     }

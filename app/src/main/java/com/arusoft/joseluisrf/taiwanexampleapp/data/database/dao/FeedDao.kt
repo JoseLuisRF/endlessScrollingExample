@@ -13,8 +13,8 @@ import com.arusoft.offermepartner.data.database.dao.base.BaseDao
 @Dao
 interface FeedDao : BaseDao<FeedEntity> {
 
-    @Query("select * from " + FEED_TABLE_NAME)
-    fun selectFeeds() : DataSource.Factory<Integer, FeedEntity>
+    @Query("select * from  $FEED_TABLE_NAME")
+    fun selectFeeds() : List<FeedEntity>
 
     @Insert(onConflict = OnConflictStrategy.ROLLBACK)
     fun insertFeeds(entities: List<FeedEntity>) : List<Long>

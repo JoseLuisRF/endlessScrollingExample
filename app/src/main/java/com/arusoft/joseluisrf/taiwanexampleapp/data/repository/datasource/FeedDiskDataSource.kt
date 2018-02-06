@@ -11,5 +11,5 @@ interface FeedDiskDataSource {
 
     fun insertFeeds(entities: List<FeedEntity>) : Flowable<List<Long>>
 
-    fun selectFeeds() : Flowable<DataSource.Factory<Integer, FeedEntity>>
+    fun selectFeeds() : Flowable<List<FeedEntity>>
 }

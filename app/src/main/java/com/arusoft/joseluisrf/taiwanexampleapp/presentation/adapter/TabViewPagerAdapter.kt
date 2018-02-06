@@ -11,9 +11,9 @@ import com.arusoft.joseluisrf.taiwanexampleapp.presentation.fragments.ShopFragme
 class TabViewPagerAdapter constructor(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val NUMBER_OF_TABS: Int = 3
-    private val CITY_GUIDE_FRAGMENT: Int = 1
-    private val SHOP_FRAGMENT: Int = 2
-    private val EAT_FRAGMENT: Int = 3
+    private val CITY_GUIDE_FRAGMENT: Int = 0
+    private val SHOP_FRAGMENT: Int = 1
+    private val EAT_FRAGMENT: Int = 2
 
     override fun getItem(position: Int): Fragment =
             when (position) {

@@ -3,9 +3,10 @@ package com.arusoft.joseluisrf.taiwanexampleapp.data.mapper
 import com.arusoft.joseluisrf.taiwanexampleapp.data.api.model.FeedItem
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
+import javax.inject.Inject
 
 
-class FeedMapper {
+class FeedMapper @Inject constructor() {
 
     fun convert(model: FeedModel) : FeedEntity
         = FeedEntity(

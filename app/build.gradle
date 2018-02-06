@@ -48,33 +48,38 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    compile dependencies.SupportDesign
+    implementation dependencies.SupportDesign
     implementation dependencies.AppCompatV7
     implementation dependencies.ConstraintLayout
     implementation dependencies.ArchRoomRuntime
     implementation dependencies.ArchRoomRxJava2
-    compile dependencies.Dagger2
-    compile dependencies.Gson
-    compile dependencies.Picasso
-    compile dependencies.Retrofit
-    compile dependencies.RetrofitConverterGson
-    compile dependencies.RetrofitAdapterRxJava2
-    compile dependencies.OkHttp
-    compile dependencies.OkHttpInterceptor
-    compile dependencies.RxJava2
-    compile dependencies.RxAndroid
+    implementation dependencies.Dagger2
+    implementation dependencies.DaggerAndroid
+    implementation dependencies.DaggerAndroidSupport
+    implementation dependencies.Gson
+    implementation dependencies.Picasso
+    implementation dependencies.Retrofit
+    implementation dependencies.RetrofitConverterGson
+    implementation dependencies.RetrofitAdapterRxJava2
+    implementation dependencies.OkHttp
+    implementation dependencies.OkHttpInterceptor
+    implementation dependencies.RxJava2
+    implementation dependencies.RxAndroid
 
     // alternatively, just ViewModelModule
     implementation "android.arch.lifecycle:viewmodel:1.1.0"
     // alternatively, just LiveData
     implementation "android.arch.lifecycle:livedata:1.1.0"
 
+
     // Paging
     implementation "android.arch.paging:runtime:1.0.0-alpha5"
 
+    kapt "android.arch.lifecycle:compiler:1.1.0"
     kapt dependencies.RoomCompiler
     kapt dependencies.Dagger2Compiler
     kapt dependencies.AndroidDatabinding
+    kapt dependencies.DaggerAndroidProcessor
 
     testImplementation testDependencies.JUnit
 

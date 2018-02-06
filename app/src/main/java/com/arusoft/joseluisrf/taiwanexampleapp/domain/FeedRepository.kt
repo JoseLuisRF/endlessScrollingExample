@@ -12,5 +12,5 @@ interface FeedRepository {
 
     fun saveFeeds(models: List<FeedModel>) : Flowable<List<Long>>
 
-    fun selectAllFeeds() : Flowable<DataSource.Factory<Integer, FeedEntity>>
+    fun selectAllFeeds() : Flowable<List<FeedEntity>>
 }
