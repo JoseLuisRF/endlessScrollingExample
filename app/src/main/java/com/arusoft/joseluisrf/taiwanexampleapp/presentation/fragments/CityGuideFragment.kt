@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,10 +36,12 @@ class CityGuideFragment : BaseFragment(), Injectable {
         val adapter = CityGuideAdapter()
         binding.rvFeeds.adapter = adapter
 
-        viewModel.getFeedGuide()
-
-        viewModel.allFeedItems.observe(this, Observer<PagedList<FeedEntity>> {
+        viewModel.allFeedItems?.observe(this, Observer<PagedList<FeedEntity>> {
+            Log.d("JLRF", "PagedList<FeedEntity>")
             adapter.setList(it)
         })
+
+        viewModel.getFeedGuide()
+
     }
 }

@@ -20,7 +20,8 @@ class FeedDiskDataSourceImpl @Inject constructor(private val database: AppDataBa
 
     override fun insertFeeds(entities: List<FeedEntity>): Flowable<List<Long>> {
         return Flowable.create({ e ->
-            e.onNext(database.getFeedDao().insertFeeds(entities))
+            val res = database.getFeedDao().insertFeeds(entities)
+            e.onNext(res)
             e.onComplete()
         }, BackpressureStrategy.BUFFER)
     }

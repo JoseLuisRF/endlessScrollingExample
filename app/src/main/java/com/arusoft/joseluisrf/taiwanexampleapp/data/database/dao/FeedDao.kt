@@ -16,6 +16,6 @@ interface FeedDao : BaseDao<FeedEntity> {
     @Query("select * from " + FEED_TABLE_NAME)
     fun selectFeeds() : DataSource.Factory<Integer, FeedEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFeeds(entities: List<FeedEntity>) : List<Long>
 }

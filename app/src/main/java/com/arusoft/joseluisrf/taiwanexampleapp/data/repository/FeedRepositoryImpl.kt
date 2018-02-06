@@ -37,9 +37,7 @@ class FeedRepositoryImpl @Inject constructor(private val feedCloudDataSource: Fe
 
     override fun saveFeeds(models: List<FeedModel>): Flowable<List<Long>> {
         Log.d("JLRF", "saveFeeds")
-        return feedDiskDataSource.insertFeeds(models.map { model ->
-            Log.d("JLRF", "entity:" + model.toString())
-            dataMapper.convert(model) })
+        return feedDiskDataSource.insertFeeds(models.map { model -> dataMapper.convert(model) })
     }
 
     override fun selectAllFeeds(): Flowable<DataSource.Factory<Integer, FeedEntity>> {

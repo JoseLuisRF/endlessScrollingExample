@@ -40,17 +40,15 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
         private const val ENABLE_PLACEHOLDERS = true
     }
 
+    var allFeedItems: LiveData<PagedList<FeedEntity>>? = null
 
-    lateinit var allFeedItems: LiveData<PagedList<FeedEntity>>
 
-    private var feedGuide: MutableLiveData<List<FeedModel>>? = null
-
-    fun getFeedGuide(): LiveData<List<FeedModel>> {
-        if (feedGuide == null) {
-            feedGuide = MutableLiveData<List<FeedModel>>()
+    fun getFeedGuide(): LiveData<PagedList<FeedEntity>> {
+        if (allFeedItems == null) {
+            allFeedItems = MutableLiveData<PagedList<FeedEntity>>()
             loadUsers()
         }
-        return feedGuide as MutableLiveData<List<FeedModel>>
+        return allFeedItems!!
     }
 
     private fun loadUsers() {
@@ -65,14 +63,13 @@ class CityGuideViewModel @Inject constructor(private val useCaseGetCityGuide: Us
             }
 
             override fun onNext(models: DataSource.Factory<Integer, FeedEntity>) {
-
-
                 allFeedItems = LivePagedListBuilder(
                         models,
                         PagedList.Config.Builder()
                                 .setPageSize(PAGE_SIZE)
                                 .setEnablePlaceholders(ENABLE_PLACEHOLDERS)
                                 .build()).build()
+                Log.d("JLRF", "onNext-models.count:" + allFeedItems?.value?.count())
 
 
             }
