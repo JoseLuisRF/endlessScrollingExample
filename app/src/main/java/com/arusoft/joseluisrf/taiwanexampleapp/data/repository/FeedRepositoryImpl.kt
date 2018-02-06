@@ -24,7 +24,7 @@ class FeedRepositoryImpl @Inject constructor(private val feedCloudDataSource: Fe
                         }
 
                         val models: MutableList<FeedModel> = mutableListOf()
-                        body.feeds.forEach { item -> models.add(dataMapper.convert(item)) }
+                        body.feeds.forEach { item -> models.add(dataMapper.convert(item, page)) }
                         models
 
                     } else {

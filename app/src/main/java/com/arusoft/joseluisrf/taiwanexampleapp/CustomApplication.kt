@@ -1,12 +1,12 @@
 package com.arusoft.joseluisrf.taiwanexampleapp
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.arusoft.joseluisrf.taiwanexampleapp.di.ComponentsFactory
 import com.arusoft.joseluisrf.taiwanexampleapp.di.component.ApplicationComponent
 
-class CustomApplication : Application() {
+class CustomApplication : MultiDexApplication() {
 
-    public lateinit var applicationComponent: ApplicationComponent
+    lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()

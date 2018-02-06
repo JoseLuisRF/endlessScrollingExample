@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            imageUrl="@{model.imageUrl}"
             android:id="@+id/iv_item_city_guide_full"
             android:layout_width="match_parent"
             android:layout_height="200dp"

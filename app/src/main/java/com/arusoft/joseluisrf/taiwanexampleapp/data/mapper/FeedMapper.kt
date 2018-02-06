@@ -8,34 +8,37 @@ import javax.inject.Inject
 
 class FeedMapper @Inject constructor() {
 
-    fun convert(model: FeedModel) : FeedEntity
-        = FeedEntity(
-                model.id,
-                model.title,
-                model.description,
-                model.imageUrl,
-                model.imagePath,
-                model.type
-        )
+    fun convert(model: FeedModel): FeedEntity
+            = FeedEntity(
+            model.id,
+            model.title,
+            model.description,
+            model.imageUrl,
+            model.imagePath,
+            model.type,
+            model.page
+    )
 
 
-    fun convert(entity: FeedEntity) : FeedModel
-        = FeedModel(
-                entity.id,
-                entity.title,
-                entity.description,
-                entity.imageUrl,
-                entity.imagePath,
-                entity.type
-        )
+    fun convert(entity: FeedEntity): FeedModel
+            = FeedModel(
+            entity.id,
+            entity.title,
+            entity.description,
+            entity.imageUrl,
+            entity.imagePath,
+            entity.type,
+            entity.page
+    )
 
-    fun convert(response: FeedItem) : FeedModel
+    fun convert(response: FeedItem, page: Int): FeedModel
             = FeedModel(
             response.id,
             response.title,
             response.description,
             response.imageUrl,
             null,
-            response.type
+            response.type,
+            page
     )
 }

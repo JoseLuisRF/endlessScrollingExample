@@ -1,7 +1,6 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.presentation.adapter
 
 import android.databinding.DataBindingUtil
-import android.support.v7.recyclerview.extensions.DiffCallback
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,26 +30,26 @@ class CityGuideAdapter constructor() : RecyclerView.Adapter< BaseItemViewHolder>
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: BaseItemViewHolder?, position: Int) {
-        val mapper = FeedMapper()
-        when(getItemViewType(position)) {
-            R.layout.item_city_guide -> (holder as DescriptionItemViewHolder).binding.model = mapper.convert(data.get(position))
-
-            R.layout.item_city_guide_full_image -> (holder as ImageItemViewHolder).binding.model = mapper.convert(data.get(position))
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseItemViewHolder {
         return when (viewType) {
             R.layout.item_city_guide -> DescriptionItemViewHolder(
-                    DataBindingUtil.inflate(LayoutInflater.from(parent?.context),
-                    R.layout.item_city_guide, parent, false))
+                    DataBindingUtil.inflate(LayoutInflater.from(parent?.context), R.layout.item_city_guide, parent, false))
 
             R.layout.item_city_guide_full_image -> ImageItemViewHolder(
-                    DataBindingUtil.inflate(LayoutInflater.from(parent?.context),
-                            R.layout.item_city_guide_full_image, parent, false))
+                    DataBindingUtil.inflate(LayoutInflater.from(parent?.context), R.layout.item_city_guide_full_image, parent, false))
 
             else -> throw IllegalArgumentException("unknown view type $viewType")
+        }
+    }
+
+    override fun onBindViewHolder(holder: BaseItemViewHolder?, position: Int) {
+        val mapper = FeedMapper()
+        val model = mapper.convert(data.get(position))
+
+        if( holder is DescriptionItemViewHolder){
+            holder.binding.model = model
+        } else if(holder is ImageItemViewHolder){
+            holder.binding.model = model
         }
     }
 
@@ -64,28 +63,8 @@ class CityGuideAdapter constructor() : RecyclerView.Adapter< BaseItemViewHolder>
     companion object {
 
         private const val FULL_ITEM = 1
-        private const val IMAGE_ITEM = 1
-        /**
-         * This diff callback informs the PagedListAdapter how to compute list differences when new
-         * PagedLists arrive.
-         * <p>
-         * When you add a Cheese with the 'Add' button, the PagedListAdapter uses diffCallback to
-         * detect there's only a single item difference from before, so it only needs to animate and
-         * rebind a single view.
-         *
-         * @see android.support.v7.util.DiffUtil
-         */
-        private val diffCallback = object : DiffCallback<FeedEntity>() {
-            override fun areItemsTheSame(oldItem: FeedEntity, newItem: FeedEntity): Boolean =
-                    oldItem.id == newItem.id
+        private const val IMAGE_ITEM = 2
 
-            /**
-             * Note that in kotlin, == checking on data classes compares all contents, but in Java,
-             * typically you'll implement Object#equals, and use it to compare object contents.
-             */
-            override fun areContentsTheSame(oldItem: FeedEntity, newItem: FeedEntity): Boolean =
-                    oldItem == newItem
-        }
     }
 }
 

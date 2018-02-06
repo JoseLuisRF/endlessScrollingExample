@@ -6,4 +6,5 @@ data class FeedModel constructor(val id: Int,
                                  val description: String?,
                                  val imageUrl: String?,
                                  val imagePath: String?,
-                                 val type: Int)
+                                 val type: Int,
+                                 val page: Int)

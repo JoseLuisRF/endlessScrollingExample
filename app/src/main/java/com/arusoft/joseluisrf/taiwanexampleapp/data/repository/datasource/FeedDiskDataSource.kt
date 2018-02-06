@@ -1,6 +1,5 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.data.repository.datasource
 
-import android.arch.paging.DataSource
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import io.reactivex.Flowable
 

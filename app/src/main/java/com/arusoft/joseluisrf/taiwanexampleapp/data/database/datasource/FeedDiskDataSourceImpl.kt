@@ -1,7 +1,5 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.data.database.datasource
 
-import android.arch.paging.DataSource
-import android.util.Log
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.AppDataBase
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.data.repository.datasource.FeedDiskDataSource

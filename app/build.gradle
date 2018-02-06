@@ -18,6 +18,7 @@ android {
         versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         testApplicationId globalConfiguration.getAt("testApplicationId")
+        multiDexEnabled true
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -48,14 +49,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
+    implementation dependencies.MultiDex
     implementation dependencies.SupportDesign
     implementation dependencies.AppCompatV7
     implementation dependencies.ConstraintLayout
     implementation dependencies.ArchRoomRuntime
     implementation dependencies.ArchRoomRxJava2
     implementation dependencies.Dagger2
-    implementation dependencies.DaggerAndroid
-    implementation dependencies.DaggerAndroidSupport
+//    implementation dependencies.DaggerAndroid
+//    implementation dependencies.DaggerAndroidSupport
     implementation dependencies.Gson
     implementation dependencies.Picasso
     implementation dependencies.Retrofit
@@ -67,22 +69,24 @@ dependencies {
     implementation dependencies.RxAndroid
 
     // alternatively, just ViewModelModule
-    implementation "android.arch.lifecycle:viewmodel:1.1.0"
+//    implementation "android.arch.lifecycle:viewmodel:1.1.0"
     // alternatively, just LiveData
-    implementation "android.arch.lifecycle:livedata:1.1.0"
+//    implementation "android.arch.lifecycle:livedata:1.1.0"
+    implementation dependencies.Glide
+
 
 
     // Paging
-    implementation "android.arch.paging:runtime:1.0.0-alpha5"
+//    implementation "android.arch.paging:runtime:1.0.0-alpha5"
 
-    kapt "android.arch.lifecycle:compiler:1.1.0"
+//    kapt "android.arch.lifecycle:compiler:1.1.0"
     kapt dependencies.RoomCompiler
     kapt dependencies.Dagger2Compiler
     kapt dependencies.AndroidDatabinding
-    kapt dependencies.DaggerAndroidProcessor
+//    kapt dependencies.DaggerAndroidProcessor
+    kapt dependencies.GlideProcessor
 
     testImplementation testDependencies.JUnit
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

@@ -9,6 +9,6 @@ abstract class BaseFragment : Fragment() {
 
 
     fun getApplicationComponent() :
-            ApplicationComponent =  (context.applicationContext as CustomApplication).applicationComponent
+            ApplicationComponent =  (context?.applicationContext as CustomApplication).applicationComponent
 
 }

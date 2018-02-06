@@ -29,7 +29,7 @@ class CityGuideFragment : BaseFragment() , CityGuideView {
 
     private var adapter = CityGuideAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<FragmentCityGuideBinding>(inflater, R.layout.fragment_city_guide, container, false)
         return binding.root
     }

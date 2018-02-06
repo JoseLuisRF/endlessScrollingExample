@@ -14,11 +14,11 @@ class UseCaseGetCityGuide @Inject constructor(
         private val deviceUtils: DeviceUtils,
         private val feedRepository: FeedRepository,
         threadExecutor: ThreadExecutor?,
-        postExecutionThread: PostExecutionThread?) : BaseUseCaseFlowable<List<FeedEntity>, Any>(threadExecutor, postExecutionThread) {
+        postExecutionThread: PostExecutionThread?) : BaseUseCaseFlowable<List<FeedEntity>, Int>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(`object`: Any?): Flowable<List<FeedEntity>> {
+    override fun buildUseCaseObservable(page: Int): Flowable<List<FeedEntity>> {
         if (deviceUtils.isNetworkAvailable) {
-            return feedRepository.fetchFeeds(1)
+            return feedRepository.fetchFeeds(page)
                     .flatMap { feeds -> feedRepository.saveFeeds(feeds) }
                     .flatMap { res -> feedRepository.selectAllFeeds() }
 

@@ -2,10 +2,11 @@ package com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 import com.arusoft.joseluisrf.taiwanexampleapp.data.database.*
 
-@Entity(tableName = FEED_TABLE_NAME)
+@Entity(tableName = FEED_TABLE_NAME, indices = arrayOf(Index(value = FEED_TITLE_COLUMN_NAME, unique = true)))
 data class FeedEntity(
 
         @PrimaryKey(autoGenerate = true)
@@ -25,5 +26,9 @@ data class FeedEntity(
         val imagePath: String?,
 
         @ColumnInfo(name = FEED_TYPE_COLUMN_NAME)
-        val type: Int
+        val type: Int,
+
+        @ColumnInfo(name = FEED_PAGE_COLUMN_NAME)
+        val page: Int
+
 )

@@ -16,17 +16,17 @@ allprojects {
 
 ext {
     //Android
-    androidBuildToolsVersion = "26.0.2"
+    androidBuildToolsVersion = "27.0.0"
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 26
-    androidCompileSdkVersion = 26
+    androidCompileSdkVersion = 27
     androidApplicationId = 'com.arusoft.joseluisrf.taiwanexampleapp'
     androidVersionCode = 20181218
     androidVersionName = "1.0"
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     testApplicationId = 'com.arusoft.joseluisrf.taiwanexampleapp.test'
 
-    supportLibsVersion          = "26.1.0"
+    supportLibsVersion          = "27.0.2"
     constraintLayoutVersion     = "1.0.2"
     multiDexVersion             = "1.0.1"
     archRoomVersion             = "1.0.0"
@@ -93,7 +93,9 @@ ext {
             Dagger2Compiler         : "com.google.dagger:dagger-compiler:${dagger2Version}",
             DaggerAndroid           : "com.google.dagger:dagger-android:${dagger2Version}",
             DaggerAndroidSupport    : "com.google.dagger:dagger-android-support:${dagger2Version}",
-            DaggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:${dagger2Version}"
+            DaggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:${dagger2Version}",
+            Glide                   : "com.github.bumptech.glide:glide:4.6.1",
+            GlideProcessor          : "com.github.bumptech.glide:compiler:4.6.1"
     ]
 
     appTestDependencies = [
