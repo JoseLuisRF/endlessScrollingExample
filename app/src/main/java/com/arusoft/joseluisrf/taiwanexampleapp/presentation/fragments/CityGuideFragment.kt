@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class CityGuideFragment : BaseFragment(), CityGuideView {
 
     private lateinit var binding: FragmentCityGuideBinding
     private val PAGE_SIZE = 5
+    private var currentPage = 0
 
     @Inject
     lateinit var presenter: CityGuidePresenter
@@ -43,21 +45,19 @@ class CityGuideFragment : BaseFragment(), CityGuideView {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvFeeds.layoutManager = linearLayoutManager
         binding.rvFeeds.adapter = adapter
+
+
         binding.swipeRefresh.setOnRefreshListener {
-            object : SwipeRefreshLayout.OnRefreshListener {
-                override fun onRefresh() {
-                    //TODO: Refresh Data displayed on the screen based on current Page
-                    //presenter.refreshData(page)
-                }
-            }
+            SwipeRefreshLayout.OnRefreshListener { presenter.refreshData(currentPage) }
         }
 
         binding.rvFeeds.addOnScrollListener(object : EndlessScrollListener() {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                presenter.loadFeed(page)
+                currentPage = page
+                presenter.loadFeed(currentPage)
             }
         })
-        presenter.loadFeed(1)
+        presenter.loadFeed(currentPage)
     }
 
     override fun onLoadFeedError() {
@@ -73,5 +73,13 @@ class CityGuideFragment : BaseFragment(), CityGuideView {
                 adapter.addLoading()
             }
         }
+    }
+
+    override fun onUpdateFeedsCompleteSuccessful() {
+        binding.swipeRefresh.isRefreshing = false
+    }
+
+    override fun onUpdateFeedsCompleteError() {
+        binding.swipeRefresh.isRefreshing = false
     }
 }

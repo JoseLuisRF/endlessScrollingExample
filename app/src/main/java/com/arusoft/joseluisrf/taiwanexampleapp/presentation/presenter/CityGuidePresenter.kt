@@ -1,14 +1,15 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.presentation.presenter
 
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.UseCaseGetCityGuide
+import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.UseCaseUpdateFeedsByPage
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 import com.arusoft.joseluisrf.taiwanexampleapp.presentation.view.CityGuideView
 import io.reactivex.subscribers.DisposableSubscriber
 import javax.inject.Inject
 
 
-class CityGuidePresenter @Inject constructor(private val useCaseGetCityGuide: UseCaseGetCityGuide) {
+class CityGuidePresenter @Inject constructor(private val useCaseGetCityGuide: UseCaseGetCityGuide,
+                                             private val useCaseUpdateFeedsByPage: UseCaseUpdateFeedsByPage) {
 
     var view: CityGuideView? = null
 
@@ -29,5 +30,24 @@ class CityGuidePresenter @Inject constructor(private val useCaseGetCityGuide: Us
                 view?.onLoadFeedSuccess(anotherList)
             }
         }, page)
+    }
+
+    fun refreshData(currentPage: Int) {
+
+        useCaseUpdateFeedsByPage.execute(object: DisposableSubscriber<Any>() {
+
+            override fun onError(t: Throwable?) {
+                view?.onUpdateFeedsCompleteError()
+            }
+
+            override fun onNext(t: Any?) {
+                view?.onUpdateFeedsCompleteSuccessful()
+            }
+
+            override fun onComplete() {
+                view?.onUpdateFeedsCompleteSuccessful()
+            }
+
+        }, currentPage)
     }
 }

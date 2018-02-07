@@ -1,6 +1,5 @@
 package com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor
 
-import com.arusoft.joseluisrf.taiwanexampleapp.data.database.entity.FeedEntity
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.FeedRepository
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.PostExecutionThread
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.executor.ThreadExecutor
@@ -8,7 +7,6 @@ import com.arusoft.joseluisrf.taiwanexampleapp.domain.interactor.base.BaseUseCas
 import com.arusoft.joseluisrf.taiwanexampleapp.domain.model.FeedModel
 import com.arusoft.joseluisrf.taiwanexampleapp.util.DeviceUtils
 import io.reactivex.Flowable
-import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 
@@ -21,14 +19,15 @@ class UseCaseGetCityGuide @Inject constructor(
     override fun buildUseCaseObservable(page: Int): Flowable<List<FeedModel>> {
 
         if (deviceUtils.isNetworkAvailable) {
-            val fetchFeedFlowable = feedRepository.fetchFeeds(page)
-            val getLocalFeedsFlowable = feedRepository.selectAllFeeds(page)
-
-            return Flowable.combineLatest(fetchFeedFlowable, getLocalFeedsFlowable,
-                    BiFunction<List<FeedModel>, List<FeedModel>, List<FeedModel>> { cloudData, localData ->
-                        //TODO: Logic for update items
-                        cloudData
-                    })
+            //FIXME: Create a logic to update items when fetched from Cloud Data Source
+//            val fetchFeedFlowable = feedRepository.fetchFeeds(page)
+//            val getLocalFeedsFlowable = feedRepository.selectAllFeeds(page)
+//
+//            Flowable.combineLatest(fetchFeedFlowable, getLocalFeedsFlowable,
+//                    BiFunction<List<FeedModel>, List<FeedModel>, List<FeedModel>> { cloudData, localData ->
+//                        cloudData
+//                    })
+            return feedRepository.fetchFeeds(page)
                     .flatMap { feeds -> feedRepository.saveFeeds(feeds) }
                     .flatMap { res -> feedRepository.selectAllFeeds(page) }
 

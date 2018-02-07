@@ -14,7 +14,6 @@ import javax.inject.Inject;
 /**
  * @FileName DeviceUtils.java
  * @Purpose
- * @Author Allstate Insurance
  * @RevisionHistory Created
  */
 public class DeviceUtils {

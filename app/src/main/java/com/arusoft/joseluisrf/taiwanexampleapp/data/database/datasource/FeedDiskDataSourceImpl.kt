@@ -7,7 +7,6 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-
 class FeedDiskDataSourceImpl @Inject constructor(private val database: AppDataBase) : FeedDiskDataSource {
 
     override fun insertFeed(entity: FeedEntity): Flowable<Long> {
@@ -24,11 +23,6 @@ class FeedDiskDataSourceImpl @Inject constructor(private val database: AppDataBa
         }, BackpressureStrategy.BUFFER)
     }
 
-    override fun selectFeeds(page: Int): Flowable<List<FeedEntity>> {
-        return Flowable.create({ e ->
-            e.onNext(database.getFeedDao().selectFeeds(page))
-            e.onComplete()
-        }, BackpressureStrategy.BUFFER)
-    }
-
+    override fun selectFeeds(page: Int):
+            Flowable<List<FeedEntity>> = database.getFeedDao().selectFeeds(page)
 }
